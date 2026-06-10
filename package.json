@@ -1,6 +1,6 @@
 {
   "name": "qinglong-client",
-  "version": "0.0.0-development",
+  "version": "0.0.1",
   "description": "TypeScript client for Qinglong Open API (/open/*)",
   "author": "siaikin <abc1310054026@outlook.com>",
   "repository": {
@@ -26,7 +26,11 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist", "docs", "README.md"],
+  "files": [
+    "dist",
+    "docs",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -37,7 +41,12 @@
     "semantic-release": "semantic-release"
   },
   "packageManager": "pnpm@9.15.0",
-  "keywords": ["qinglong", "client", "typescript", "open-api"],
+  "keywords": [
+    "qinglong",
+    "client",
+    "typescript",
+    "open-api"
+  ],
   "license": "Apache-2.0",
   "engines": {
     "node": ">=18"
