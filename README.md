@@ -136,6 +136,8 @@ pnpm docs:site  # 构建 GitHub Pages 站点
 
 npm 发布使用 [Trusted Publishing (OIDC)](https://docs.npmjs.com/trusted-publishers)，无需长期有效的 `NPM_TOKEN`。
 
+> **注意**：OIDC 发布需要 npm 11.5+（Node 24 自带）。release job 使用 Node 24；CI job 仍用 Node 22 即可。
+
 在 [npm 包设置](https://www.npmjs.com/package/qinglong-client) → **Trusted Publisher** 中配置 GitHub Actions：
 
 | 字段 | 值 |
