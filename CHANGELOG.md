@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/siaikin/qinglong-client/compare/v1.0.0...v1.1.0) (2026-06-10)
+
+
+### Features
+
+* format readme ([a2a662a](https://github.com/siaikin/qinglong-client/commit/a2a662ab29e21064c6096391601d48e2e44022d8))
+
 # 1.0.0 (2026-06-10)
 
 
