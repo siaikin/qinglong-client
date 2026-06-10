@@ -144,7 +144,9 @@ npm 发布使用 [Trusted Publishing (OIDC)](https://docs.npmjs.com/trusted-publ
 | Repository | `qinglong-client` |
 | Workflow filename | `release.yml` |
 
-`GITHUB_TOKEN` 由 Actions 自动提供，无需手动配置。配置完成后，可在 npm 包设置中将 **Publishing access** 设为 **Require two-factor authentication and disallow tokens**，进一步限制传统 token 发布。
+GitHub 不允许手动创建以 `GITHUB_` 开头的 Secret（系统保留）。workflow 通过 `${{ github.token }}` 自动注入 `GITHUB_TOKEN` 环境变量，**无需**在仓库 Settings → Secrets 中添加任何 GitHub 相关 Secret。
+
+配置完成后，可在 npm 包设置中将 **Publishing access** 设为 **Require two-factor authentication and disallow tokens**，进一步限制传统 token 发布。
 
 ### 提交规范示例
 
