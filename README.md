@@ -132,15 +132,19 @@ pnpm docs:site  # 构建 GitHub Pages 站点
 3. 更新 `CHANGELOG.md` 与 `package.json`
 4. 发布到 [npm](https://www.npmjs.com/package/qinglong-client) 并创建 GitHub Release
 
-### 首次发布前配置
+### npm Trusted Publishing
 
-在 [GitHub 仓库 Settings → Secrets](https://github.com/siaikin/qinglong-client/settings/secrets/actions) 中添加：
+npm 发布使用 [Trusted Publishing (OIDC)](https://docs.npmjs.com/trusted-publishers)，无需长期有效的 `NPM_TOKEN`。
 
-| Secret | 说明 |
-|--------|------|
-| `NPM_TOKEN` | [npm Access Token](https://www.npmjs.com/settings/~your-account/tokens)（Automation 类型） |
+在 [npm 包设置](https://www.npmjs.com/package/qinglong-client) → **Trusted Publisher** 中配置 GitHub Actions：
 
-`GITHUB_TOKEN` 由 Actions 自动提供，无需手动配置。
+| 字段 | 值 |
+|------|-----|
+| Organization or user | `siaikin` |
+| Repository | `qinglong-client` |
+| Workflow filename | `release.yml` |
+
+`GITHUB_TOKEN` 由 Actions 自动提供，无需手动配置。配置完成后，可在 npm 包设置中将 **Publishing access** 设为 **Require two-factor authentication and disallow tokens**，进一步限制传统 token 发布。
 
 ### 提交规范示例
 
