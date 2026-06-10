@@ -42,6 +42,8 @@ await client.system.notify({ title: '完成', content: '任务执行成功' });
 
 ## 文档
 
+在线文档：**https://siaikin.github.io/qinglong-client/**
+
 ### 手写指南
 
 | 文档 | 说明 |
@@ -53,14 +55,19 @@ await client.system.notify({ title: '完成', content: '任务执行成功' });
 
 ### API 文档（TypeDoc）
 
-从源码 JSDoc 自动生成的交互式 API 文档：
+从源码 JSDoc 自动生成的交互式 API 文档，已部署至 GitHub Pages：
+
+- 指南文档：https://siaikin.github.io/qinglong-client/
+- TypeDoc API：https://siaikin.github.io/qinglong-client/api/
+
+本地生成：
 
 ```bash
 pnpm docs          # 生成到 api-docs/
 pnpm docs:watch    # 监听源码变更自动重建
 ```
 
-生成后打开 `api-docs/index.html` 浏览，包含类、方法、类型、枚举的完整签名与中文注释。
+生成后打开 `api-docs/index.html` 浏览，或运行 `pnpm docs:site` 构建完整站点到 `site/`。
 
 ## API 模块
 
@@ -111,7 +118,40 @@ pnpm install
 pnpm build      # 构建 ESM + CJS + .d.ts
 pnpm typecheck  # 类型检查
 pnpm docs       # 生成 TypeDoc API 文档
+pnpm docs:site  # 构建 GitHub Pages 站点
 ```
+
+## 发布
+
+本项目使用 [semantic-release](https://semantic-release.org/) 在 GitHub Actions 中自动发布到 npm 与 GitHub Releases。
+
+向 `main` 分支推送符合 [Conventional Commits](https://www.conventionalcommits.org/) 的提交后，CI 会自动：
+
+1. 运行类型检查与构建
+2. 根据提交信息计算版本号（`feat:` → minor，`fix:` → patch，`BREAKING CHANGE` → major）
+3. 更新 `CHANGELOG.md` 与 `package.json`
+4. 发布到 [npm](https://www.npmjs.com/package/qinglong-client) 并创建 GitHub Release
+
+### 首次发布前配置
+
+在 [GitHub 仓库 Settings → Secrets](https://github.com/siaikin/qinglong-client/settings/secrets/actions) 中添加：
+
+| Secret | 说明 |
+|--------|------|
+| `NPM_TOKEN` | [npm Access Token](https://www.npmjs.com/settings/~your-account/tokens)（Automation 类型） |
+
+`GITHUB_TOKEN` 由 Actions 自动提供，无需手动配置。
+
+### 提交规范示例
+
+```text
+feat: add subscription batch update
+fix: handle 401 token refresh
+docs: update getting started guide
+chore: bump dev dependencies
+```
+
+当前仓库已有 `feat: initial repository` 提交，首次 release 将发布 **v1.0.0**（或按 analyzer 规则计算的版本）。
 
 ## License
 

@@ -2,6 +2,8 @@
 
 qinglong-client 完整文档。
 
+在线阅读：**https://siaikin.github.io/qinglong-client/**
+
 ## 目录
 
 ### 指南文档
@@ -15,14 +17,16 @@ qinglong-client 完整文档。
 
 ### TypeDoc API 文档
 
-使用 [TypeDoc](https://typedoc.org/) 从源码 JSDoc 自动生成交互式 HTML 文档：
+交互式 API 文档（GitHub Pages）：**https://siaikin.github.io/qinglong-client/api/**
+
+本地使用 [TypeDoc](https://typedoc.org/) 从源码 JSDoc 生成：
 
 ```bash
 pnpm docs        # 输出到 ../api-docs/
-pnpm docs:watch  # 开发时监听变更
+pnpm docs:site    # 构建指南 + TypeDoc 到 site/（用于 GitHub Pages）
 ```
 
-生成后打开 `api-docs/index.html`，可搜索类名、方法名、类型，查看完整签名与中文注释。
+生成后打开 `api-docs/index.html`，或 `site/index.html` 预览完整站点。
 
 ## 架构概览
 
