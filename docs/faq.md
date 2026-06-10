@@ -1,0 +1,132 @@
+# 常见问题
+
+## 认证相关
+
+### 如何获取 client_id 和 client_secret？
+
+在青龙面板 **系统设置 → 应用设置 → 添加应用** 中创建，创建后可在应用列表中查看。`client_secret` 可通过「重置密钥」重新生成。
+
+### Token 有效期多久？
+
+默认 **30 天**。客户端在过期前 5 分钟自动刷新，无需手动处理。
+
+### 收到 401 错误怎么办？
+
+可能原因：
+
+1. **Token 过期** — 客户端会自动刷新，若持续失败请检查 `client_id` / `client_secret` 是否正确
+2. **Scope 不匹配** — 确认应用在面板中勾选了对应权限（如调用 `client.envs` 需 `envs` scope）
+3. **路径大小写** — 青龙启用了严格路由，路径必须小写（如 `/open/envs`，非 `/open/Envs`）
+
+### 应用管理接口（/open/apps）能用吗？
+
+不能。`/open/apps*` 属于面板 JWT 管理接口，不在 Open API scope 内。本客户端不包含这些接口。
+
+---
+
+## 配置相关
+
+### baseUrl 怎么填？
+
+| 场景 | baseUrl 示例 |
+|------|-------------|
+| 默认安装 | `http://localhost:5700` |
+| 自定义端口 | `http://192.168.1.100:8888` |
+| 配置了 QlBaseUrl=/ql | `http://localhost:5700/ql` |
+| 反向代理 | `https://ql.example.com` |
+
+注意：**不要**在 baseUrl 末尾加 `/open`，客户端会自动拼接。
+
+### 如何在 Docker 环境中使用？
+
+```typescript
+const client = new QinglongClient({
+  baseUrl: 'http://host.docker.internal:5700',
+  clientId: process.env.QL_CLIENT_ID!,
+  clientSecret: process.env.QL_CLIENT_SECRET!,
+});
+```
+
+---
+
+## 接口使用
+
+### 批量操作的 ID 格式
+
+DELETE、PUT 等批量接口的 body 为 **ID 数组**：
+
+```typescript
+await client.envs.delete([1, 2, 3]);     // 正确
+await client.crons.run([42]);             // 单个也传数组
+await client.envs.delete(1);             // 错误：不要传单个数字
+```
+
+### 环境变量命名规则
+
+变量名必须以字母或下划线开头，仅含字母、数字、下划线：
+
+```
+✅ JD_COOKIE, _private, my_var2
+❌ 123_VAR, my-var, JD COOKIE
+```
+
+### Cron 表达式格式
+
+支持标准 5 位 cron 表达式和特殊值：
+
+```
+0 8 * * *     # 每天 8:00
+*/5 * * * *   # 每 5 分钟
+@once         # 仅运行一次
+@boot         # 启动时运行
+```
+
+### 流式接口如何使用？
+
+`commandRun`、`getLog`、`updateNodeMirror` 等接口在服务端以流式返回。客户端自动收集完整文本后返回 `Promise<string>`，适合大多数场景。若需实时处理流，可使用自定义 `fetch` 直接请求 `/open/system/command-run`。
+
+### 下载接口返回什么？
+
+`scripts.download()` 和 `logs.download()` 返回 `Promise<Blob>`：
+
+```typescript
+const blob = await client.scripts.download({ filename: 'test.js' });
+const text = await blob.text();                          // 文本内容
+const buffer = Buffer.from(await blob.arrayBuffer());    // Node.js 二进制
+```
+
+---
+
+## 类型与版本
+
+### 类型从哪里来？
+
+从青龙源码手工推导，非 OpenAPI codegen：
+
+- 实体类型 ← `back/data/*.ts`
+- 请求类型 ← `back/api/*.ts` Joi 校验
+- 注释 ← Joi 错误消息 + 枚举说明
+
+### 如何跟进青龙版本更新？
+
+1. 查看 `package.json` 的 `qinglongVersion` 字段
+2. 对比青龙 `back/api/` 路由变更
+3. 更新本客户端 `src/types/` 和 `src/apis/`
+4. 发布新版本
+
+### 类型能在浏览器中使用吗？
+
+可以。包同时输出 ESM 和 CJS，支持 Node.js 18+ 和现代 bundler（Vite、Webpack 等）。浏览器环境需解决跨域（CORS）问题，通常通过反向代理访问青龙面板。
+
+---
+
+## 与面板内置 API 的区别
+
+| | Open API (`/open/*`) | 内置 API (QLAPI/gRPC) |
+|--|---------------------|----------------------|
+| 协议 | REST/HTTP | gRPC |
+| 鉴权 | 应用 Token + scope | 脚本内建，无需配置 |
+| 使用场景 | 外部系统集成 | 脚本运行时调用 |
+| 本客户端 | ✅ 支持 | ❌ 不支持 |
+
+内置 API 文档：[qinglong.online 内置 API](https://qinglong.online/guide/user-guide/built-in-api)

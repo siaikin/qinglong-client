@@ -1,0 +1,35 @@
+{
+  "name": "qinglong-client",
+  "version": "0.2.0",
+  "description": "TypeScript client for Qinglong Open API (/open/*)",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist", "docs", "README.md"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "docs": "typedoc",
+    "docs:watch": "typedoc --watch"
+  },
+  "keywords": ["qinglong", "client", "typescript", "open-api"],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "qinglongVersion": "2.20.2",
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typedoc": "^0.28.0",
+    "typescript": "^5.2.2"
+  }
+}

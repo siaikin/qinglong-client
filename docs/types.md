@@ -1,0 +1,294 @@
+# 类型参考
+
+所有类型均可从包中直接导入，IDE 悬停可查看 JSDoc 中文注释。
+
+```typescript
+import type { Env, Crontab, QinglongClientOptions } from 'qinglong-client';
+```
+
+类型定义从青龙源码（`back/data/*.ts`、`back/api/*.ts` Joi 校验）手工推导，对应青龙版本 **2.20.2**。
+
+---
+
+## 通用类型
+
+### QinglongClientOptions
+
+客户端构造参数。
+
+```typescript
+interface QinglongClientOptions {
+  baseUrl: string;           // 面板地址，支持 QlBaseUrl 前缀
+  clientId: string;          // 应用 Client ID
+  clientSecret: string;      // 应用 Client Secret
+  fetch?: typeof fetch;      // 自定义 fetch
+  tokenRefreshBuffer?: number; // Token 刷新缓冲（秒），默认 300
+}
+```
+
+### QinglongResponse\<T\>
+
+青龙统一 API 响应格式。
+
+```typescript
+interface QinglongResponse<T = unknown> {
+  code: number;    // 200 = 成功
+  data?: T;
+  message?: string;
+  errors?: Array<{ message: string; value?: unknown }>;
+}
+```
+
+### QinglongApiError
+
+`code !== 200` 时抛出的错误类。
+
+```typescript
+class QinglongApiError extends Error {
+  readonly code: number;
+  readonly errors?: QinglongResponse['errors'];
+}
+```
+
+### AppScope
+
+应用权限范围。
+
+```typescript
+type AppScope =
+  | 'crons' | 'envs' | 'subscriptions' | 'configs'
+  | 'scripts' | 'logs' | 'dependencies' | 'system' | 'dashboard';
+```
+
+---
+
+## 认证
+
+```typescript
+interface AuthToken {
+  token: string;
+  token_type: 'Bearer';
+  expiration: number; // Unix 秒，默认 30 天
+}
+```
+
+---
+
+## 环境变量
+
+```typescript
+enum EnvStatus { Normal = 0, Disabled = 1 }
+
+interface Env {
+  id?: number;
+  name?: string;       // 字母/下划线开头
+  value?: string;
+  remarks?: string;
+  status?: EnvStatus;
+  position?: number;
+  isPinned?: 0 | 1;
+  labels?: string[];
+}
+
+interface CreateEnvItem {
+  name: string;        // 正则: /^[a-zA-Z_][0-9a-zA-Z_]*$/
+  value: string;
+  remarks?: string;
+  labels?: string[];
+}
+
+interface UpdateEnvRequest {
+  id: number;
+  name: string;
+  value: string;
+  remarks?: string | null;
+  labels?: string[];
+}
+```
+
+---
+
+## 定时任务
+
+```typescript
+enum CrontabStatus { Running = 0, Idle = 1, Disabled = 2, Queued = 3 }
+enum InstanceStatus { Running = 0, Finished = 1, Stopped = 2, Error = 3 }
+
+interface CronMutationRequest {
+  name?: string;
+  command: string;              // 必填
+  schedule: string;             // cron 表达式或 @once / @boot
+  labels?: string[];
+  sub_id?: number | null;
+  extra_schedules?: Array<{ schedule: string }> | null;
+  task_before?: string | null;
+  task_after?: string | null;
+  log_name?: string | null;
+  allow_multiple_instances?: 0 | 1 | null;
+  work_dir?: string | null;
+}
+
+interface UpdateCronRequest extends CronMutationRequest {
+  id: number;
+}
+
+interface Crontab extends CronMutationRequest {
+  id?: number;
+  status?: CrontabStatus;
+  isDisabled?: 0 | 1;
+  isPinned?: 0 | 1;
+  pid?: number;
+  log_path?: string;
+  last_running_time?: number;
+  last_execution_time?: number;
+}
+
+interface RunningInstance {
+  id?: number;
+  cron_id: number;
+  pid?: number;
+  log_path?: string;
+  started_at: number;
+  finished_at?: number;
+  status: InstanceStatus;
+  exit_code?: number;
+}
+
+interface CronView {
+  id?: number;
+  name?: string;
+  filters?: CronViewFilter[];
+  sorts?: CronViewSort[] | null;
+  filterRelation?: 'and' | 'or';
+  type?: 1 | 2;  // 1=系统, 2=个人
+}
+```
+
+---
+
+## 订阅
+
+```typescript
+enum SubscriptionStatus { Running = 0, Idle = 1, Disabled = 2, Queued = 3 }
+
+type SubscriptionType = 'public-repo' | 'private-repo' | 'file';
+type ScheduleType = 'crontab' | 'interval';
+type PullType = 'ssh-key' | 'user-pwd';
+
+interface Subscription {
+  id?: number;
+  type?: SubscriptionType;
+  url?: string;
+  alias: string;
+  schedule_type?: ScheduleType;
+  schedule?: string;
+  status?: SubscriptionStatus;
+  is_disabled?: 0 | 1;
+  autoAddCron?: 0 | 1;
+  autoDelCron?: 0 | 1;
+  // ...
+}
+
+interface CreateSubscriptionRequest {
+  type: string;
+  url: string;
+  alias: string;
+  schedule_type: string;
+  schedule?: string | null;
+  // ...
+}
+```
+
+---
+
+## 依赖
+
+```typescript
+enum DependenceStatus {
+  Installing = 0, Installed = 1, InstallFailed = 2,
+  Removing = 3, Removed = 4, RemoveFailed = 5,
+  Queued = 6, Cancelled = 7,
+}
+
+enum DependenceType { Nodejs = 0, Python3 = 1, Linux = 2 }
+
+interface Dependence {
+  id?: number;
+  name: string;
+  type: DependenceType;
+  status: DependenceStatus;
+  remark?: string;
+  log?: string[];
+}
+
+interface CreateDependenceItem {
+  name: string;
+  type: DependenceType;
+  remark?: string;
+}
+```
+
+---
+
+## 系统
+
+```typescript
+interface SystemInfo {
+  isInitialized: boolean;
+  version: string;
+  publishTime: number;
+  branch: string;
+  changeLog: string;
+  changeLogLink: string;
+}
+
+interface SystemConfig {
+  logRemoveFrequency?: number;
+  cronConcurrency?: number;
+  dependenceProxy?: string;
+  nodeMirror?: string;
+  pythonMirror?: string;
+  linuxMirror?: string;
+  timezone?: string;
+  globalSshKey?: string;
+}
+
+interface NotifyRequest {
+  title: string;
+  content: string;
+}
+```
+
+---
+
+## 文件树
+
+脚本和日志目录共用的文件树节点：
+
+```typescript
+interface FileNode {
+  title: string;
+  key: string;
+  type: 'directory' | 'file';
+  parent: string;
+  createTime: number;
+  size?: number;
+  children?: FileNode[];
+}
+```
+
+---
+
+## 配置文件
+
+```typescript
+interface ConfigFileItem {
+  title: string;
+  value: string;
+}
+
+interface SaveConfigRequest {
+  name: string;
+  content?: string;
+}
+```

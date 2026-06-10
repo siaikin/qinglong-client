@@ -1,0 +1,29 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "out": "api-docs",
+  "readme": "README.md",
+  "name": "qinglong-client",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "excludeExternals": true,
+  "sort": ["source-order"],
+  "navigation": {
+    "includeCategories": true,
+    "compactFolders": true
+  },
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Client",
+    "API",
+    "Types",
+    "Enums",
+    "*"
+  ],
+  "plugin": [],
+  "searchInComments": true,
+  "validation": {
+    "notExported": false
+  }
+}
