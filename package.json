@@ -11,10 +11,6 @@
     "url": "https://github.com/siaikin/qinglong-client/issues"
   },
   "homepage": "https://github.com/siaikin/qinglong-client#readme",
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
