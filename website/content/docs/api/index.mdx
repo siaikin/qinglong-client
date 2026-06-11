@@ -1,0 +1,33 @@
+---
+title: API 参考概览
+description: 8 个模块全部 Open API 方法
+---
+
+所有方法均在 `QinglongClient` 实例上通过子模块调用。路径均相对于 `/open`。
+
+## 模块一览
+
+| 模块 | Scope | 方法数 | 文档 |
+|------|-------|--------|------|
+| `client.envs` | `envs` | 14 | [环境变量](/docs/api/envs) |
+| `client.crons` | `crons` | 27 | [定时任务](/docs/api/crons) |
+| `client.subscriptions` | `subscriptions` | 12 | [订阅管理](/docs/api/subscriptions) |
+| `client.configs` | `configs` | 5 | [配置文件](/docs/api/configs) |
+| `client.scripts` | `scripts` | 10 | [脚本管理](/docs/api/scripts) |
+| `client.logs` | `logs` | 5 | [日志管理](/docs/api/logs) |
+| `client.dependencies` | `dependencies` | 8 | [依赖管理](/docs/api/dependencies) |
+| `client.system` | `system` | 22 | [系统设置](/docs/api/system) |
+
+## 架构概览
+
+```
+QinglongClient
+├── envs           → /open/envs          (scope: envs)
+├── crons          → /open/crons         (scope: crons)
+├── subscriptions  → /open/subscriptions (scope: subscriptions)
+├── configs        → /open/configs       (scope: configs)
+├── scripts        → /open/scripts       (scope: scripts)
+├── logs           → /open/logs          (scope: logs)
+├── dependencies   → /open/dependencies  (scope: dependencies)
+└── system         → /open/system        (scope: system)
+```

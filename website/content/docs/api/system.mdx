@@ -1,0 +1,50 @@
+---
+title: client.system
+description: 系统设置 API，需要 system scope
+---
+
+需要 scope：`system`（`info()` 除外，无需鉴权）
+
+## 信息与通知
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `info()` | GET | `/system` | 系统信息（**无需鉴权**） |
+| `getConfig()` | GET | `/system/config` | 系统配置 |
+| `notify(body)` | PUT | `/system/notify` | 发送通知 |
+| `commandRun(body)` | PUT | `/system/command-run` | 运行命令（流式文本） |
+| `commandStop(body)` | PUT | `/system/command-stop` | 停止命令 |
+
+## 更新与数据
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `checkUpdate()` | PUT | `/system/update-check` | 检查更新 |
+| `update()` | PUT | `/system/update` | 更新青龙 |
+| `reload(body?)` | PUT | `/system/reload` | 重载系统 |
+| `exportData(body?)` | PUT | `/system/data/export` | 导出数据（Blob） |
+| `importData(file)` | PUT | `/system/data/import` | 导入数据（multipart） |
+| `getLog(query?)` | GET | `/system/log` | 系统日志（流式文本） |
+| `deleteLog()` | DELETE | `/system/log` | 删除系统日志 |
+| `resetAuth(body)` | PUT | `/system/auth/reset` | 重置管理员认证 |
+
+## 配置项
+
+| 方法 | HTTP | 路径 |
+|------|------|------|
+| `updateLogRemoveFrequency(body)` | PUT | `/system/config/log-remove-frequency` |
+| `updateCronConcurrency(body)` | PUT | `/system/config/cron-concurrency` |
+| `updateDependenceProxy(body)` | PUT | `/system/config/dependence-proxy` |
+| `updateNodeMirror(body)` | PUT | `/system/config/node-mirror` |
+| `updatePythonMirror(body)` | PUT | `/system/config/python-mirror` |
+| `updateLinuxMirror(body)` | PUT | `/system/config/linux-mirror` |
+| `updateTimezone(body)` | PUT | `/system/config/timezone` |
+| `updateGlobalSshKey(body)` | PUT | `/system/config/global-ssh-key` |
+| `cleanDependence(body)` | PUT | `/system/config/dependence-clean` |
+
+```typescript
+const info = await client.system.info();
+// { isInitialized, version, publishTime, branch, changeLog, changeLogLink }
+
+await client.system.notify({ title: '告警', content: '磁盘空间不足' });
+```

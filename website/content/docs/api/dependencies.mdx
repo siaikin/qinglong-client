@@ -1,0 +1,24 @@
+---
+title: client.dependencies
+description: 依赖管理 API，需要 dependencies scope
+---
+
+需要 scope：`dependencies`
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `list(query?)` | GET | `/dependencies` | 依赖列表 |
+| `getById(id)` | GET | `/dependencies/:id` | 按 ID 获取 |
+| `create(items)` | POST | `/dependencies` | 批量创建 |
+| `update(body)` | PUT | `/dependencies` | 更新 |
+| `delete(ids)` | DELETE | `/dependencies` | 删除 |
+| `forceDelete(ids)` | DELETE | `/dependencies/force` | 强制删除 |
+| `reinstall(ids)` | PUT | `/dependencies/reinstall` | 重新安装 |
+| `cancel(ids)` | PUT | `/dependencies/cancel` | 取消安装 |
+
+```typescript
+// type: 0=nodejs, 1=python3, 2=linux
+await client.dependencies.create([
+  { name: 'axios', type: 0, remark: 'HTTP 库' },
+]);
+```

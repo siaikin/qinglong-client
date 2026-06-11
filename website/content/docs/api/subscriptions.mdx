@@ -1,0 +1,31 @@
+---
+title: client.subscriptions
+description: 订阅管理 API，需要 subscriptions scope
+---
+
+需要 scope：`subscriptions`
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `list(query?)` | GET | `/subscriptions` | 订阅列表 |
+| `getById(id)` | GET | `/subscriptions/:id` | 按 ID 获取 |
+| `create(body)` | POST | `/subscriptions` | 创建订阅 |
+| `update(body)` | PUT | `/subscriptions` | 更新订阅 |
+| `delete(ids, query?)` | DELETE | `/subscriptions` | 删除，`query.force` 强制删除 |
+| `run(ids)` | PUT | `/subscriptions/run` | 运行 |
+| `stop(ids)` | PUT | `/subscriptions/stop` | 停止 |
+| `disable(ids)` | PUT | `/subscriptions/disable` | 禁用 |
+| `enable(ids)` | PUT | `/subscriptions/enable` | 启用 |
+| `updateStatus(body)` | PUT | `/subscriptions/status` | 更新状态 |
+| `getLog(id)` | GET | `/subscriptions/:id/log` | 当前日志 |
+| `getLogs(id)` | GET | `/subscriptions/:id/logs` | 日志文件列表 |
+
+```typescript
+await client.subscriptions.create({
+  type: 'public-repo',
+  url: 'https://github.com/user/repo.git',
+  alias: 'my-repo',
+  schedule_type: 'crontab',
+  schedule: '0 0 * * *',
+});
+```

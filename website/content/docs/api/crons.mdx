@@ -1,0 +1,55 @@
+---
+title: client.crons
+description: 定时任务 API，需要 crons scope
+---
+
+需要 scope：`crons`
+
+## 定时任务
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `list(query?)` | GET | `/crons` | 获取任务列表 |
+| `detail(query)` | GET | `/crons/detail` | 按条件查询单个 |
+| `getById(id)` | GET | `/crons/:id` | 按 ID 获取 |
+| `create(body)` | POST | `/crons` | 创建任务 |
+| `update(body)` | PUT | `/crons` | 更新任务 |
+| `delete(ids)` | DELETE | `/crons` | 批量删除 |
+| `run(ids)` | PUT | `/crons/run` | 运行任务 |
+| `stop(ids)` | PUT | `/crons/stop` | 停止任务 |
+| `disable(ids)` | PUT | `/crons/disable` | 禁用 |
+| `enable(ids)` | PUT | `/crons/enable` | 启用 |
+| `pin(ids)` | PUT | `/crons/pin` | 置顶 |
+| `unpin(ids)` | PUT | `/crons/unpin` | 取消置顶 |
+| `updateStatus(body)` | PUT | `/crons/status` | 更新运行状态 |
+| `addLabels(body)` | POST | `/crons/labels` | 添加标签 |
+| `removeLabels(body)` | DELETE | `/crons/labels` | 移除标签 |
+| `import()` | GET | `/crons/import` | 从 crontab 文件导入 |
+| `getLog(id)` | GET | `/crons/:id/log` | 获取当前日志 |
+| `getLogs(id)` | GET | `/crons/:id/logs` | 获取日志文件列表 |
+| `getInstances(id)` | GET | `/crons/:id/instances` | 获取运行实例 |
+| `stopInstance(cronId, instanceId)` | POST | `/crons/:id/instances/:instanceId/stop` | 停止实例 |
+
+```typescript
+// 创建示例
+await client.crons.create({
+  name: '测试任务',
+  command: 'node test.js',
+  schedule: '0 0 * * *',       // 标准 cron，或 @once / @boot
+  labels: ['daily'],
+  sub_id: null,
+  allow_multiple_instances: 0,
+});
+```
+
+## 视图
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `listViews()` | GET | `/crons/views` | 视图列表 |
+| `createView(body)` | POST | `/crons/views` | 创建视图 |
+| `updateView(body)` | PUT | `/crons/views` | 更新视图 |
+| `deleteViews(ids)` | DELETE | `/crons/views` | 删除视图 |
+| `moveView(body)` | PUT | `/crons/views/move` | 移动视图 |
+| `disableViews(ids)` | PUT | `/crons/views/disable` | 禁用视图 |
+| `enableViews(ids)` | PUT | `/crons/views/enable` | 启用视图 |

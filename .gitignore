@@ -2,4 +2,7 @@
 dist/
 api-docs/
 site/
+website/.next/
+website/out/
+website/.source/
 *.tsbuildinfo

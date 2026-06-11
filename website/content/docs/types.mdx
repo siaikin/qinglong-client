@@ -1,4 +1,7 @@
-# 类型参考
+---
+title: 类型参考
+description: TypeScript 类型与枚举说明
+---
 
 所有类型均可从包中直接导入，IDE 悬停可查看 JSDoc 中文注释。
 
@@ -26,9 +29,9 @@ interface QinglongClientOptions {
 }
 ```
 
-### QinglongResponse\<T\>
+### QinglongResponse
 
-青龙统一 API 响应格式。
+青龙统一 API 响应格式（泛型 `T` 为 `data` 字段类型）。
 
 ```typescript
 interface QinglongResponse<T = unknown> {

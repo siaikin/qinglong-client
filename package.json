@@ -24,7 +24,6 @@
   },
   "files": [
     "dist",
-    "docs",
     "README.md"
   ],
   "scripts": {
@@ -33,7 +32,7 @@
     "typecheck": "tsc --noEmit",
     "docs": "typedoc",
     "docs:watch": "typedoc --watch",
-    "docs:site": "node scripts/build-docs-site.mjs",
+    "docs:dev": "pnpm --dir website dev",
     "semantic-release": "semantic-release"
   },
   "packageManager": "pnpm@9.15.0",

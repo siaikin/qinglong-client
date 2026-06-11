@@ -45,30 +45,21 @@ await client.system.notify({ title: '完成', content: '任务执行成功' });
 
 在线文档：**https://siaikin.github.io/qinglong-client/**
 
-### 手写指南
+基于 [Fumadocs](https://www.fumadocs.dev/docs) 构建，包含快速入门、API 参考（8 模块）、类型参考与常见问题。每页提供 **Copy Markdown** 与 **Open**（ChatGPT、Claude、Cursor 等）按钮。
 
-| 文档 | 说明 |
-|------|------|
-| [快速入门](docs/getting-started.md) | 安装、认证、配置、特殊接口 |
-| [API 参考](docs/api-reference.md) | 全部 API 方法（8 模块 / 105+ 端点） |
-| [类型参考](docs/types.md) | TypeScript 类型与枚举 |
-| [常见问题](docs/faq.md) | 401 排查、baseUrl、批量操作等 |
+AI 可读内容：
 
-### API 文档（TypeDoc）
+- [llms.txt](https://siaikin.github.io/qinglong-client/llms.txt) — 文档索引
+- [llms-full.txt](https://siaikin.github.io/qinglong-client/llms-full.txt) — 全部页面 Markdown 合集
+- 单页 Markdown：`/llm/{slug}/`（如 `/llm/getting-started/`、`/llm/api--envs/`）
 
-从源码 JSDoc 自动生成的交互式 API 文档，已部署至 GitHub Pages：
-
-- 指南文档：https://siaikin.github.io/qinglong-client/
-- TypeDoc API：https://siaikin.github.io/qinglong-client/api/
-
-本地生成：
+本地预览：
 
 ```bash
-pnpm docs          # 生成到 api-docs/
-pnpm docs:watch    # 监听源码变更自动重建
+pnpm docs:dev     # 启动 Fumadocs 开发服务器
+pnpm docs         # 本地生成 TypeDoc API 文档（api-docs/）
+pnpm docs:watch   # 监听源码变更自动重建 TypeDoc
 ```
-
-生成后打开 `api-docs/index.html` 浏览，或运行 `pnpm docs:site` 构建完整站点到 `site/`。
 
 ## API 模块
 
@@ -118,8 +109,8 @@ import type {
 pnpm install
 pnpm build      # 构建 ESM + CJS + .d.ts
 pnpm typecheck  # 类型检查
-pnpm docs       # 生成 TypeDoc API 文档
-pnpm docs:site  # 构建 GitHub Pages 站点
+pnpm docs:dev   # 启动文档开发服务器
+pnpm docs       # 本地生成 TypeDoc API 文档
 ```
 
 ## 发布

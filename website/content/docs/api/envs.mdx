@@ -1,0 +1,30 @@
+---
+title: client.envs
+description: 环境变量 API，需要 envs scope
+---
+
+需要 scope：`envs`
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `list(query?)` | GET | `/envs` | 获取环境变量列表 |
+| `getById(id)` | GET | `/envs/:id` | 按 ID 获取 |
+| `create(items)` | POST | `/envs` | 批量创建 |
+| `update(body)` | PUT | `/envs` | 更新单个 |
+| `delete(ids)` | DELETE | `/envs` | 批量删除，body 为 ID 数组 |
+| `move(id, body)` | PUT | `/envs/:id/move` | 移动位置 |
+| `disable(ids)` | PUT | `/envs/disable` | 批量禁用 |
+| `enable(ids)` | PUT | `/envs/enable` | 批量启用 |
+| `updateNames(body)` | PUT | `/envs/name` | 批量重命名 |
+| `pin(ids)` | PUT | `/envs/pin` | 置顶 |
+| `unpin(ids)` | PUT | `/envs/unpin` | 取消置顶 |
+| `addLabels(body)` | POST | `/envs/labels` | 添加标签 |
+| `removeLabels(body)` | DELETE | `/envs/labels` | 移除标签 |
+| `upload(file)` | POST | `/envs/upload` | 上传 JSON 文件（multipart，字段 `env`） |
+
+```typescript
+// 创建示例
+await client.envs.create([
+  { name: 'MY_VAR', value: 'hello', remarks: '备注', labels: ['tag1'] },
+]);
+```

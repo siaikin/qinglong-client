@@ -1,0 +1,14 @@
+{
+  "title": "API 参考",
+  "pages": [
+    "index",
+    "envs",
+    "crons",
+    "subscriptions",
+    "configs",
+    "scripts",
+    "logs",
+    "dependencies",
+    "system"
+  ]
+}

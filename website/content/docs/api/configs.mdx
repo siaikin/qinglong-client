@@ -1,0 +1,20 @@
+---
+title: client.configs
+description: 配置文件 API，需要 configs scope
+---
+
+需要 scope：`configs`
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `listSamples()` | GET | `/configs/samples` | 示例配置列表 |
+| `listFiles()` | GET | `/configs/files` | 配置文件列表 |
+| `getDetail(query)` | GET | `/configs/detail` | 读取配置（query.path） |
+| `getFile(file)` | GET | `/configs/:file` | 按文件名读取 |
+| `save(body)` | POST | `/configs/save` | 保存配置文件 |
+
+```typescript
+const files = await client.configs.listFiles();
+const content = await client.configs.getFile('config.sh');
+await client.configs.save({ name: 'config.sh', content: '# ...' });
+```

@@ -1,0 +1,29 @@
+---
+title: client.scripts
+description: 脚本管理 API，需要 scripts scope
+---
+
+需要 scope：`scripts`
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `list(query?)` | GET | `/scripts` | 脚本目录树 |
+| `getDetail(query)` | GET | `/scripts/detail` | 读取脚本内容 |
+| `getFile(file, query?)` | GET | `/scripts/:file` | 按文件名读取 |
+| `create(body)` | POST | `/scripts` | 创建脚本/目录 |
+| `update(body)` | PUT | `/scripts` | 更新脚本内容 |
+| `delete(body)` | DELETE | `/scripts` | 删除脚本/目录 |
+| `run(body)` | PUT | `/scripts/run` | 运行脚本 |
+| `stop(body)` | PUT | `/scripts/stop` | 停止脚本 |
+| `rename(body)` | PUT | `/scripts/rename` | 重命名 |
+| `download(body)` | POST | `/scripts/download` | 下载（返回 Blob） |
+
+```typescript
+const tree = await client.scripts.list({ path: 'repo' });
+const code = await client.scripts.getDetail({ path: 'repo', file: 'sign.js' });
+await client.scripts.update({
+  filename: 'sign.js',
+  path: 'repo',
+  content: 'console.log("hello")',
+});
+```

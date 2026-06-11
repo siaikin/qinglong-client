@@ -1,0 +1,14 @@
+---
+title: client.logs
+description: 日志管理 API，需要 logs scope
+---
+
+需要 scope：`logs`
+
+| 方法 | HTTP | 路径 | 说明 |
+|------|------|------|------|
+| `list()` | GET | `/logs` | 日志目录树 |
+| `getDetail(query)` | GET | `/logs/detail` | 读取日志（ANSI 已剥离） |
+| `getFile(file, query?)` | GET | `/logs/:file` | 按文件名读取 |
+| `delete(body)` | DELETE | `/logs` | 删除日志文件 |
+| `download(body)` | POST | `/logs/download` | 下载（返回 Blob） |
