@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/siaikin/qinglong-client/compare/v1.1.0...v1.1.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* update base path handling in LLM functions and adjust type imports ([4df782a](https://github.com/siaikin/qinglong-client/commit/4df782a017ac907f19108659c9ae5c8b6ef631de))
+
 # [1.1.0](https://github.com/siaikin/qinglong-client/compare/v1.0.0...v1.1.0) (2026-06-10)
 
 
