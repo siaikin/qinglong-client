@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/siaikin/qinglong-client/compare/v1.1.1...v1.2.0) (2026-06-11)
+
+
+### Features
+
+* implement middleware for markdown path handling and enhance build process ([2d40eef](https://github.com/siaikin/qinglong-client/commit/2d40eefe428fd4dbd4b6409433f54fd03b4f70c6))
+
 ## [1.1.1](https://github.com/siaikin/qinglong-client/compare/v1.1.0...v1.1.1) (2026-06-11)
 
 
