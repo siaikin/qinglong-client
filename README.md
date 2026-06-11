@@ -56,7 +56,7 @@ pnpm docs:build    # 生成 TypeDoc 并构建静态站点
 pnpm docs:watch    # 监听源码变更自动重建 TypeDoc
 ```
 
-AI 可读：[llms.txt](https://siaikin.github.io/qinglong-client/llms.txt)、[llms-full.txt](https://siaikin.github.io/qinglong-client/llms-full.txt)
+AI 可读：详见文档站 [AI & LLMS](https://siaikin.github.io/qinglong-client/docs/ai-docs/)（[llms.txt](https://siaikin.github.io/qinglong-client/llms.txt)、[llms-full.txt](https://siaikin.github.io/qinglong-client/llms-full.txt)、单页 `*.md`）
 
 ## API 模块
 

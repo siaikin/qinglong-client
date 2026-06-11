@@ -1,0 +1,173 @@
+---
+title: AI & LLMS
+description: llms.txt、单页 Markdown 与在 ChatGPT / Cursor 等工具中的用法
+---
+
+本站基于 [Fumadocs](https://www.fumadocs.dev/docs/integrations/llms) 提供多种 **AI 可读** 格式，方便大模型、IDE 插件或自动化脚本直接获取文档内容，无需解析 HTML。
+
+站点根地址（GitHub Pages）：
+
+```
+https://siaikin.github.io/qinglong-client/
+```
+
+---
+
+## 三种获取方式
+
+| 方式 | 地址 | 适用场景 |
+|------|------|----------|
+| **文档索引** | `/llms.txt` | 让 AI 先了解有哪些页面，再按需读取 |
+| **全文合集** | `/llms-full.txt` | 一次性喂给 AI，适合离线分析或 RAG 入库 |
+| **单页 Markdown** | `/docs/{路径}.md` | 只读某一章，或配合页面上的 Copy / Open 按钮 |
+
+完整 URL 示例：
+
+- [llms.txt](https://siaikin.github.io/qinglong-client/llms.txt)
+- [llms-full.txt](https://siaikin.github.io/qinglong-client/llms-full.txt)
+- [快速入门 Markdown](https://siaikin.github.io/qinglong-client/docs/getting-started.md)
+- [client.envs API Markdown](https://siaikin.github.io/qinglong-client/docs/api/envs.md)
+
+---
+
+## llms.txt
+
+[`llms.txt`](https://llmstxt.org/) 是一种约定：在站点根路径放置纯文本索引，列出文档标题、简介与链接，供 AI 爬虫或 Agent 发现内容结构。
+
+本站 `llms.txt` 由文档目录树自动生成，格式大致如下：
+
+```markdown
+# 文档
+
+- [快速入门](/docs/getting-started.md): 安装、认证、配置与基础用法
+- API 参考
+  - [client.envs](/docs/api/envs.md): 环境变量 API
+  ...
+```
+
+索引中的链接均指向 `*.md` 端点，AI 可直接 fetch 获取 Markdown 正文。
+
+**用法示例** — 在对话中告诉 AI：
+
+> 请先阅读 https://siaikin.github.io/qinglong-client/llms.txt 了解文档结构，再根据需要打开具体页面。
+
+或在终端拉取索引：
+
+```bash
+curl -s https://siaikin.github.io/qinglong-client/llms.txt
+```
+
+---
+
+## llms-full.txt
+
+`llms-full.txt` 将 **所有文档页面** 的 Markdown 合并为单个文件，页面之间以空行分隔。适合：
+
+- 需要「整站上下文」的一次性问答
+- 导入向量数据库做 RAG
+- 本地保存离线副本
+
+```bash
+curl -s https://siaikin.github.io/qinglong-client/llms-full.txt -o qinglong-client-docs.md
+```
+
+注意：文件体积较大（含 TypeDoc 自动生成的 API 参考），若只需指南与手写 API 表，优先用 `llms.txt` + 单页 `.md`。
+
+---
+
+## 单页 `*.md`
+
+任意文档页面对应的 Markdown 地址，规则为：**在页面 URL 后加 `.md`**。
+
+| 页面 | HTML | Markdown |
+|------|------|----------|
+| 文档首页 | `/docs` | `/docs/index.md` |
+| 快速入门 | `/docs/getting-started` | `/docs/getting-started.md` |
+| envs 模块 | `/docs/api/envs` | `/docs/api/envs.md` |
+| TypeDoc 入口 | `/docs/reference` | `/docs/reference.md` |
+
+```bash
+# 获取快速入门的 Markdown
+curl -s https://siaikin.github.io/qinglong-client/docs/getting-started.md
+
+# 获取 crons API 参考
+curl -s https://siaikin.github.io/qinglong-client/docs/api/crons.md
+```
+
+内容为 MDX 编译后的纯 Markdown（表格、代码块、标题层级均保留），文件头包含页面标题与原始 URL。
+
+---
+
+## 文档页内按钮
+
+每一篇文档标题下方提供两个操作（由 Fumadocs 内置）：
+
+- **Copy Markdown** — 从对应 `.md` 地址拉取内容并复制到剪贴板
+- **Open** — 快捷打开：
+  - GitHub 源码
+  - View as Markdown（同上 `.md` 地址）
+  - ChatGPT、Claude、Cursor、Scira AI 等（将当前页 URL 填入预设提示）
+
+在 Cursor / VS Code 中阅读文档时，可直接点 **Open in Cursor**，将当前章节作为上下文发起提问。
+
+---
+
+## 在 AI 工具中的推荐用法
+
+### 问某一模块怎么用
+
+1. 打开 [llms.txt](https://siaikin.github.io/qinglong-client/llms.txt) 或目标页的 `.md` 链接
+2. 将 Markdown 内容粘贴到对话，或让 AI 通过 URL 读取（若工具支持联网）
+3. 结合你的实际代码提问
+
+示例提示词：
+
+```text
+以下是 qinglong-client 的 envs API 文档：
+https://siaikin.github.io/qinglong-client/docs/api/envs.md
+
+请根据文档，帮我写一个批量导入环境变量的脚本。
+```
+
+### 让 Agent 自主检索
+
+```text
+qinglong-client 文档索引：https://siaikin.github.io/qinglong-client/llms.txt
+需要查 API 时，请读取对应 /docs/.../*.md 页面，不要猜测接口路径。
+```
+
+### 本地 RAG / 知识库
+
+1. 下载 `llms-full.txt` 或按需批量抓取 `*.md`
+2. 切块入库
+3. 检索时优先命中官方文档，避免模型幻觉出错误的 scope 或路径
+
+---
+
+## 与 HTML 文档的关系
+
+| 格式 | 内容来源 | 说明 |
+|------|----------|------|
+| HTML 页面 | 同一份 MDX | 人类阅读、站内搜索、侧边栏导航 |
+| `*.md` | 同一份 MDX 的后处理结果 | 机器阅读，与 HTML 同步更新 |
+| TypeDoc `/docs/reference` | `src/` JSDoc 自动生成 | 类、接口、枚举的详细类型说明 |
+
+手写 [API 参考](/docs/api) 侧重 **HTTP 方法表与示例**；[TypeDoc](/docs/reference) 侧重 **类型签名与 JSDoc 注释**。AI 场景下可按需组合使用。
+
+---
+
+## 本地开发
+
+本地启动文档站后，同样支持上述端点（无 `/qinglong-client` 前缀）：
+
+```bash
+pnpm docs:dev
+```
+
+| 端点 | 本地地址 |
+|------|----------|
+| llms.txt | http://localhost:3000/llms.txt |
+| llms-full.txt | http://localhost:3000/llms-full.txt |
+| 单页 Markdown | http://localhost:3000/docs/getting-started.md |
+
+构建静态站点时，`.md` 文件会写入 `website/out/docs/`，随 GitHub Pages 一并部署。

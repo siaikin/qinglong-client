@@ -1,5 +1,6 @@
 import { source } from '@/lib/source';
 import { basePath } from '@/lib/base-path';
+import { llms } from 'fumadocs-core/source';
 
 /** Flat slug for static export (avoids nested path collisions). */
 export function pageSlugToLlmParam(slugs: string[]) {
@@ -28,6 +29,27 @@ export function slugsToMarkdownPath(slugs: string[]): string {
   const parts = [...slugs];
   parts[parts.length - 1] += '.md';
   return `/docs/${parts.join('/')}`;
+}
+
+/** `/docs/api/envs` → `/docs/api/envs.md`; `/docs` → `/docs/index.md` */
+export function docsUrlToMarkdownPath(url: string): string {
+  if (!url.startsWith('/docs')) return url;
+
+  const rest = url.slice('/docs'.length);
+  const slugs =
+    rest === '' || rest === '/'
+      ? []
+      : rest.replace(/^\//, '').split('/');
+  return slugsToMarkdownPath(slugs);
+}
+
+/** llms.txt index with links pointing to `*.md` endpoints. */
+export function getLlmsIndex() {
+  return llms(source)
+    .index()
+    .replace(/\]\((\/docs(?:\/[^)]*)?)\)/g, (_, url) => {
+      return `](${docsUrlToMarkdownPath(url)})`;
+    });
 }
 
 export async function getLLMText(page: (typeof source)['$inferPage']) {
