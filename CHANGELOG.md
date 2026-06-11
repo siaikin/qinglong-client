@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/siaikin/qinglong-client/compare/v1.2.0...v1.3.0) (2026-06-11)
+
+
+### Features
+
+* enhance AI documentation and update llms integration ([7f63092](https://github.com/siaikin/qinglong-client/commit/7f630924bd512e022cd59a2d7c4c1008f52ec332))
+
 # [1.2.0](https://github.com/siaikin/qinglong-client/compare/v1.1.1...v1.2.0) (2026-06-11)
 
 
