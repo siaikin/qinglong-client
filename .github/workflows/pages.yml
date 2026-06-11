@@ -42,7 +42,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate API reference (TypeDoc → Markdown)
-        run: pnpm docs
+        run: pnpm docs:gen
 
       - name: Install website dependencies
         run: pnpm install --frozen-lockfile

@@ -50,7 +50,7 @@ await client.system.notify({ title: '完成', content: '任务执行成功' });
 本地命令：
 
 ```bash
-pnpm docs          # 生成 TypeDoc Markdown → website/content/docs/reference/
+pnpm docs:gen      # 生成 TypeDoc Markdown → website/content/docs/reference/
 pnpm docs:dev      # 先生成 TypeDoc，再启动 Fumadocs 开发服务器
 pnpm docs:build    # 生成 TypeDoc 并构建静态站点
 pnpm docs:watch    # 监听源码变更自动重建 TypeDoc
@@ -106,7 +106,7 @@ import type {
 pnpm install
 pnpm build      # 构建 ESM + CJS + .d.ts
 pnpm typecheck  # 类型检查
-pnpm docs       # 生成 API Markdown（TypeDoc → reference/）
+pnpm docs:gen   # 生成 API Markdown（TypeDoc → reference/）
 pnpm docs:dev   # 生成 API 文档并启动 Fumadocs
 ```
 

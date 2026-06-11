@@ -30,10 +30,10 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
-    "docs": "typedoc && node scripts/fix-reference-md.mjs",
+    "docs:gen": "typedoc && node scripts/fix-reference-md.mjs",
     "docs:watch": "typedoc --watch",
-    "docs:dev": "pnpm docs && pnpm --dir website dev",
-    "docs:build": "pnpm docs && pnpm --dir website build",
+    "docs:dev": "pnpm docs:gen && pnpm --dir website dev",
+    "docs:build": "pnpm docs:gen && pnpm --dir website build",
     "semantic-release": "semantic-release"
   },
   "packageManager": "pnpm@9.15.0",
