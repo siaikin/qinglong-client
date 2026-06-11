@@ -1,5 +1,4 @@
-import { getLLMText } from '@/lib/llm';
-import { pageSlugToLlmParam, llmParamToPageSlug } from '@/lib/llm';
+import { getLLMText, llmParamToPageSlug, pageSlugToLlmParam } from '@/lib/llm';
 import { source } from '@/lib/source';
 import { notFound } from 'next/navigation';
 
