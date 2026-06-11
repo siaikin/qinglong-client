@@ -1,4 +1,5 @@
 import { source } from '@/lib/source';
+import { basePath } from '@/lib/base-path';
 
 /** Flat slug for static export (avoids nested path collisions). */
 export function pageSlugToLlmParam(slugs: string[]) {
@@ -19,8 +20,7 @@ ${processed}`;
 }
 
 export function getMarkdownUrl(page: (typeof source)['$inferPage']) {
-  const base = page.url.split('/docs')[0];
-  return `${base}/llm/${pageSlugToLlmParam(page.slugs)}/`;
+  return `${basePath}/llm/${pageSlugToLlmParam(page.slugs)}/`;
 }
 
 export function getGitHubUrl(page: (typeof source)['$inferPage']) {

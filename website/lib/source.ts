@@ -1,10 +1,8 @@
 import { docs } from 'collections/server';
 import { loader } from 'fumadocs-core/source';
 
-const basePath =
-  process.env.NODE_ENV === 'production' ? '/qinglong-client' : '';
-
 export const source = loader({
-  baseUrl: `${basePath}/docs`,
+  // Must not include Next.js basePath; Link/router add it automatically.
+  baseUrl: '/docs',
   source: docs.toFumadocsSource(),
 });
