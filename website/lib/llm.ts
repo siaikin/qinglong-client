@@ -24,5 +24,8 @@ export function getMarkdownUrl(page: (typeof source)['$inferPage']) {
 }
 
 export function getGitHubUrl(page: (typeof source)['$inferPage']) {
+  if (page.path.startsWith('reference/')) {
+    return 'https://github.com/siaikin/qinglong-client/tree/main/src';
+  }
   return `https://github.com/siaikin/qinglong-client/blob/main/website/content/docs/${page.path}`;
 }

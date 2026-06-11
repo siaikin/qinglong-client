@@ -45,21 +45,18 @@ await client.system.notify({ title: '完成', content: '任务执行成功' });
 
 在线文档：**https://siaikin.github.io/qinglong-client/**
 
-基于 [Fumadocs](https://www.fumadocs.dev/docs) 构建，包含快速入门、API 参考（8 模块）、类型参考与常见问题。每页提供 **Copy Markdown** 与 **Open**（ChatGPT、Claude、Cursor 等）按钮。
+基于 [Fumadocs](https://www.fumadocs.dev/docs) 构建，包含手写 **API 参考**（按模块的 HTTP 方法表）与 **TypeDoc**（从 `src/` JSDoc 自动生成，站点顶部导航入口）。
 
-AI 可读内容：
-
-- [llms.txt](https://siaikin.github.io/qinglong-client/llms.txt) — 文档索引
-- [llms-full.txt](https://siaikin.github.io/qinglong-client/llms-full.txt) — 全部页面 Markdown 合集
-- 单页 Markdown：`/llm/{slug}/`（如 `/llm/getting-started/`、`/llm/api--envs/`）
-
-本地预览：
+本地命令：
 
 ```bash
-pnpm docs:dev     # 启动 Fumadocs 开发服务器
-pnpm docs         # 本地生成 TypeDoc API 文档（api-docs/）
-pnpm docs:watch   # 监听源码变更自动重建 TypeDoc
+pnpm docs          # 生成 TypeDoc Markdown → website/content/docs/reference/
+pnpm docs:dev      # 先生成 TypeDoc，再启动 Fumadocs 开发服务器
+pnpm docs:build    # 生成 TypeDoc 并构建静态站点
+pnpm docs:watch    # 监听源码变更自动重建 TypeDoc
 ```
+
+AI 可读：[llms.txt](https://siaikin.github.io/qinglong-client/llms.txt)、[llms-full.txt](https://siaikin.github.io/qinglong-client/llms-full.txt)
 
 ## API 模块
 
@@ -109,8 +106,8 @@ import type {
 pnpm install
 pnpm build      # 构建 ESM + CJS + .d.ts
 pnpm typecheck  # 类型检查
-pnpm docs:dev   # 启动文档开发服务器
-pnpm docs       # 本地生成 TypeDoc API 文档
+pnpm docs       # 生成 API Markdown（TypeDoc → reference/）
+pnpm docs:dev   # 生成 API 文档并启动 Fumadocs
 ```
 
 ## 发布

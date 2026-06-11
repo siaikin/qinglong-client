@@ -17,9 +17,8 @@ export function baseOptions(): BaseLayoutProps {
         external: true,
       },
       {
-        text: 'llms.txt',
-        url: '/llms.txt',
-        external: true,
+        text: 'TypeDoc',
+        url: '/docs/reference',
       },
     ],
   };

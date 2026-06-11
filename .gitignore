@@ -5,4 +5,5 @@ site/
 website/.next/
 website/out/
 website/.source/
+website/content/docs/reference/
 *.tsbuildinfo

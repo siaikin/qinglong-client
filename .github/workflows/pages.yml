@@ -37,7 +37,12 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          cache-dependency-path: website/pnpm-lock.yaml
+
+      - name: Install root dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate API reference (TypeDoc → Markdown)
+        run: pnpm docs
 
       - name: Install website dependencies
         run: pnpm install --frozen-lockfile

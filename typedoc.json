@@ -1,9 +1,9 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["src/index.ts"],
-  "out": "api-docs",
-  "readme": "README.md",
-  "name": "qinglong-client",
+  "out": "website/content/docs/reference",
+  "readme": "none",
+  "name": "qinglong-client API",
   "includeVersion": true,
   "excludePrivate": true,
   "excludeInternal": true,
@@ -21,7 +21,20 @@
     "Enums",
     "*"
   ],
-  "plugin": [],
+  "plugin": [
+    "typedoc-plugin-markdown",
+    "typedoc-plugin-frontmatter"
+  ],
+  "entryFileName": "index",
+  "hidePageHeader": true,
+  "hideBreadcrumbs": true,
+  "useHTMLAnchors": false,
+  "frontmatterGlobals": {
+    "description": "从源码 JSDoc 自动生成"
+  },
+  "indexFrontmatter": {
+    "title": "TypeDoc"
+  },
   "searchInComments": true,
   "validation": {
     "notExported": false
