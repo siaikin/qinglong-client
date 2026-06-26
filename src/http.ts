@@ -17,7 +17,6 @@ export function buildUrl(
       }
     }
   }
-  url.searchParams.set('t', String(Date.now()));
   return url.toString();
 }
 
