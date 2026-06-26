@@ -84,6 +84,20 @@ await client.envs.delete(1);             // 错误：不要传单个数字
 @boot         # 启动时运行
 ```
 
+### 如何按名称查找定时任务？
+
+**不要**使用 `GET /open/crons/detail?name=…`（源码中 `/crons/detail` 仅支持 `log_path`）。应使用列表接口：
+
+```typescript
+// 模糊搜索
+const { data, total } = await client.crons.list({ searchValue: '签到' });
+
+// 按名称字段搜索
+const { data } = await client.crons.list({ searchValue: 'name:每日签到' });
+```
+
+`list()` 返回 `{ data: Crontab[], total: number }`，不是裸数组。
+
 ### 流式接口如何使用？
 
 `commandRun`、`getLog`、`updateNodeMirror` 等接口在服务端以流式返回。客户端自动收集完整文本后返回 `Promise<string>`，适合大多数场景。若需实时处理流，可使用自定义 `fetch` 直接请求 `/open/system/command-run`。

@@ -1,3 +1,20 @@
+# [2.0.0](https://github.com/siaikin/qinglong-client/compare/v1.3.0...v2.0.0) (2026-06-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **`crons.list()`** 返回类型由 `Crontab[]` 改为 `{ data: Crontab[]; total: number }`，与青龙源码 `crontabs()` 一致
+* **`ListCronsQuery`** 移除无效字段（ids/labels/sub_id/status 等），改为 searchValue、page、size、sorter、filters、queryString
+* **`CronDetailQuery`** 仅保留 `log_path`；按名称搜索请用 `list({ searchValue })`
+
+### Features
+
+* add `system.updateLanguage()` for `PUT /system/config/lang`
+
+### Bug Fixes
+
+* align crons/subscriptions/system Open API types with Qinglong 2.20.2 source
+
 # [1.3.0](https://github.com/siaikin/qinglong-client/compare/v1.2.0...v1.3.0) (2026-06-11)
 
 

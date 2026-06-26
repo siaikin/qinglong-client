@@ -79,26 +79,34 @@ export interface Crontab extends CronMutationRequest {
   saved?: boolean;
 }
 
-/** GET /open/crons 查询参数 */
-export interface ListCronsQuery {
-  searchValue?: string;
-  ids?: string;
-  labels?: string;
-  sub_id?: string;
-  status?: string;
-  isDisabled?: string;
-  filters?: string;
-  filterRelation?: string;
-  sorts?: string;
-  view?: string;
+/** GET /open/crons 响应（对应 back/services/cron.ts crontabs） */
+export interface ListCronsResult {
+  data: Crontab[];
+  total: number;
 }
 
-/** GET /open/crons/detail 查询参数 */
+/** GET /open/crons 查询参数（对应 back/services/cron.ts crontabs） */
+export interface ListCronsQuery {
+  /**
+   * 搜索关键词。纯文本模糊匹配 name/command/schedule/labels；
+   * 或使用前缀：`name:xxx`、`command:xxx`、`schedule:xxx`、`label:xxx`
+   */
+  searchValue?: string;
+  /** 页码（从 1 开始，需配合 size） */
+  page?: string;
+  /** 每页条数 */
+  size?: string;
+  /** 排序，JSON 字符串，如 `{"field":"name","type":"ASC"}` */
+  sorter?: string;
+  /** 筛选条件，JSON 字符串 */
+  filters?: string;
+  /** 视图筛选/排序，JSON 字符串（含 filters、sorts、filterRelation） */
+  queryString?: string;
+}
+
+/** GET /open/crons/detail 查询参数（对应 back/services/cron.ts find，仅支持 log_path） */
 export interface CronDetailQuery {
-  id?: number;
-  name?: string;
-  command?: string;
-  schedule?: string;
+  log_path: string;
 }
 
 /** PUT /open/crons/status 更新运行状态 */

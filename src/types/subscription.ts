@@ -98,6 +98,7 @@ export interface UpdateSubscriptionRequest extends CreateSubscriptionRequest {
 /** GET /open/subscriptions 查询参数 */
 export interface ListSubscriptionsQuery {
   searchValue?: string;
+  /** JSON 数组字符串，如 `"[1,2,3]"`（服务端 JSON.parse 解析） */
   ids?: string;
 }
 

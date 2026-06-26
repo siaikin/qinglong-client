@@ -7,6 +7,7 @@ import {
   CronView,
   Crontab,
   ListCronsQuery,
+  ListCronsResult,
   LogFileInfo,
   MoveCronViewRequest,
   RunningInstance,
@@ -23,16 +24,19 @@ export class CronsApi {
     private readonly getToken: () => Promise<string>,
   ) {}
 
-  /** 获取定时任务列表 */
-  list(query?: ListCronsQuery): Promise<Crontab[]> {
-    return request<Crontab[]>(this.fetchFn, this.baseUrl, {
+  /** 获取定时任务列表（含分页 total） */
+  list(query?: ListCronsQuery): Promise<ListCronsResult> {
+    return request<ListCronsResult>(this.fetchFn, this.baseUrl, {
       method: 'GET',
       path: '/crons',
       query,
     }, this.getToken);
   }
 
-  /** 按条件查询单个定时任务详情 */
+  /**
+   * 按 log_path 查询单个定时任务（GET /crons/detail）。
+   * 按名称/命令搜索请用 {@link list} 的 searchValue。
+   */
   detail(query: CronDetailQuery): Promise<Crontab | null> {
     return request<Crontab | null>(this.fetchFn, this.baseUrl, {
       method: 'GET',

@@ -9,8 +9,8 @@ description: 定时任务 API，需要 crons scope
 
 | 方法 | HTTP | 路径 | 说明 |
 |------|------|------|------|
-| `list(query?)` | GET | `/crons` | 获取任务列表 |
-| `detail(query)` | GET | `/crons/detail` | 按条件查询单个 |
+| `list(query?)` | GET | `/crons` | 获取任务列表（返回 `{ data, total }`） |
+| `detail(query)` | GET | `/crons/detail` | 按 **log_path** 查询单个（不支持 name） |
 | `getById(id)` | GET | `/crons/:id` | 按 ID 获取 |
 | `create(body)` | POST | `/crons` | 创建任务 |
 | `update(body)` | PUT | `/crons` | 更新任务 |
@@ -29,6 +29,28 @@ description: 定时任务 API，需要 crons scope
 | `getLogs(id)` | GET | `/crons/:id/logs` | 获取日志文件列表 |
 | `getInstances(id)` | GET | `/crons/:id/instances` | 获取运行实例 |
 | `stopInstance(cronId, instanceId)` | POST | `/crons/:id/instances/:instanceId/stop` | 停止实例 |
+
+### list 查询参数
+
+| 参数 | 说明 |
+|------|------|
+| `searchValue` | 搜索词。纯文本模糊匹配 name/command/schedule/labels；或 `name:xxx`、`command:xxx`、`schedule:xxx`、`label:xxx` |
+| `page` / `size` | 分页（page 从 1 开始） |
+| `sorter` | 排序，JSON 字符串，如 `{"field":"name","type":"ASC"}` |
+| `filters` | 筛选，JSON 字符串 |
+| `queryString` | 视图筛选/排序，JSON 字符串 |
+
+```typescript
+// 按名称搜索（正确方式，非 /crons/detail?name=）
+const { data, total } = await client.crons.list({ searchValue: '每日签到' });
+const { data: exact } = await client.crons.list({ searchValue: 'name:每日签到' });
+
+// 按 log_path（/crons/detail 唯一支持的 query）
+const byLog = await client.crons.detail({ log_path: 'xxx/yyy' });
+
+// 按 ID
+const byId = await client.crons.getById(42);
+```
 
 ```typescript
 // 创建示例

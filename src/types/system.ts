@@ -18,6 +18,7 @@ export interface SystemConfig {
   linuxMirror?: string;
   timezone?: string;
   globalSshKey?: string;
+  lang?: string;
 }
 
 /** PUT /open/system/notify 发送通知 */
@@ -88,6 +89,10 @@ export interface UpdateLinuxMirrorRequest {
 
 export interface UpdateTimezoneRequest {
   timezone: string | null;
+}
+
+export interface UpdateLanguageRequest {
+  lang: string | null;
 }
 
 export interface UpdateGlobalSshKeyRequest {

@@ -14,6 +14,7 @@ import {
   UpdateCronConcurrencyRequest,
   UpdateDependenceProxyRequest,
   UpdateGlobalSshKeyRequest,
+  UpdateLanguageRequest,
   UpdateLinuxMirrorRequest,
   UpdateLogRemoveFrequencyRequest,
   UpdateNodeMirrorRequest,
@@ -200,6 +201,14 @@ export class SystemApi {
     return request<QinglongResponse>(this.fetchFn, this.baseUrl, {
       method: 'PUT',
       path: '/system/config/timezone',
+      body,
+    }, this.getToken);
+  }
+
+  updateLanguage(body: UpdateLanguageRequest): Promise<QinglongResponse> {
+    return request<QinglongResponse>(this.fetchFn, this.baseUrl, {
+      method: 'PUT',
+      path: '/system/config/lang',
       body,
     }, this.getToken);
   }

@@ -28,7 +28,10 @@ const client = new QinglongClient({
 // 环境变量
 const envs = await client.envs.list({ searchValue: '' });
 
-// 定时任务
+// 定时任务：按名称搜索
+const { data: crons, total } = await client.crons.list({ searchValue: '签到' });
+
+// 创建定时任务
 const cron = await client.crons.create({
   name: '每日签到',
   command: 'node sign.js',
@@ -69,7 +72,7 @@ AI 可读：详见文档站 [AI & LLMS](https://siaikin.github.io/qinglong-clien
 | `client.scripts` | `scripts` | 10 |
 | `client.logs` | `logs` | 5 |
 | `client.dependencies` | `dependencies` | 8 |
-| `client.system` | `system` | 22 |
+| `client.system` | `system` | 23 |
 
 ## 错误处理
 
