@@ -1,6 +1,20 @@
 # [2.0.0](https://github.com/siaikin/qinglong-client/compare/v1.3.0...v2.0.0) (2026-06-26)
 
 
+### Features
+
+* align crons/system Open API with Qinglong 2.20.2 (v2.0.0) ([bd88f9c](https://github.com/siaikin/qinglong-client/commit/bd88f9c6c743195753dd5f81793961414da5e950))
+
+
+### BREAKING CHANGES
+
+* crons.list() returns { data, total }; ListCronsQuery and CronDetailQuery updated to match server source.
+
+Co-authored-by: Cursor <cursoragent@cursor.com>
+
+# [2.0.0](https://github.com/siaikin/qinglong-client/compare/v1.3.0...v2.0.0) (2026-06-26)
+
+
 ### ⚠ BREAKING CHANGES
 
 * **`crons.list()`** 返回类型由 `Crontab[]` 改为 `{ data: Crontab[]; total: number }`，与青龙源码 `crontabs()` 一致
