@@ -26,6 +26,9 @@ importers:
       next:
         specifier: ^16.0.0
         version: 16.2.9(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      qinglong-client:
+        specifier: file:..
+        version: file:..
       react:
         specifier: ^19.2.0
         version: 19.2.7
@@ -1667,6 +1670,10 @@ packages:
 
   property-information@7.2.0:
     resolution: {integrity: sha512-IAtzIB6sUiWaJYrX9smp3V46pBGbBeLFRGdh25kg1334VcBlD8HzhPeNIWQH9zhGmo2itIe25EHt9dQP7G5hmg==}
+
+  qinglong-client@file:..:
+    resolution: {directory: .., type: directory}
+    engines: {node: '>=18'}
 
   react-dom@19.2.7:
     resolution: {integrity: sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ==}
@@ -3689,6 +3696,8 @@ snapshots:
       source-map-js: 1.2.1
 
   property-information@7.2.0: {}
+
+  qinglong-client@file:..: {}
 
   react-dom@19.2.7(react@19.2.7):
     dependencies:

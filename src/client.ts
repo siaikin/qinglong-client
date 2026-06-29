@@ -51,7 +51,10 @@ export class QinglongClient {
   readonly system: SystemApi;
 
   constructor(options: QinglongClientOptions) {
-    this.fetchFn = options.fetch ?? globalThis.fetch;
+    // Avoid "Illegal invocation" when default fetch is called unbound in browsers.
+    this.fetchFn =
+      options.fetch ??
+      ((input, init) => globalThis.fetch(input, init));
     this.tokenManager = new TokenManager(options, this.fetchFn);
 
     const getToken = () => this.tokenManager.getToken();

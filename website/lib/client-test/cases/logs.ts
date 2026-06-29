@@ -1,0 +1,50 @@
+import type { ClientTestCase } from '../types';
+
+export const logsCases: ClientTestCase[] = [
+  {
+    module: 'logs',
+    method: 'list',
+    http: 'GET',
+    path: '/logs',
+    scope: 'logs',
+    description: '获取日志目录树',
+    argsJson: '[]',
+  },
+  {
+    module: 'logs',
+    method: 'getDetail',
+    http: 'GET',
+    path: '/logs/detail',
+    scope: 'logs',
+    description: '读取日志内容',
+    argsJson: '[{"file":"test.log"}]',
+  },
+  {
+    module: 'logs',
+    method: 'getFile',
+    http: 'GET',
+    path: '/logs/:file',
+    scope: 'logs',
+    description: '按文件名读取日志',
+    argsJson: '["test.log", {}]',
+  },
+  {
+    module: 'logs',
+    method: 'delete',
+    http: 'DELETE',
+    path: '/logs',
+    scope: 'logs',
+    description: '删除日志文件',
+    argsJson: '[{"filename":"test.log"}]',
+    destructive: true,
+  },
+  {
+    module: 'logs',
+    method: 'download',
+    http: 'POST',
+    path: '/logs/download',
+    scope: 'logs',
+    description: '下载日志文件',
+    argsJson: '[{"filename":"test.log"}]',
+  },
+];

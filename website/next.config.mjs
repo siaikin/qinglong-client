@@ -11,8 +11,9 @@ const basePath =
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  output: 'export',
-  trailingSlash: true,
+  // Static export only for production build; dev needs proxy/middleware without export constraint.
+  ...(process.env.NODE_ENV === 'production' ? { output: 'export' } : {}),
+  trailingSlash: false,
   images: { unoptimized: true },
   basePath,
   assetPrefix: basePath ? `${basePath}/` : '',

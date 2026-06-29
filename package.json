@@ -32,8 +32,8 @@
     "typecheck": "tsc --noEmit",
     "docs:gen": "typedoc && node scripts/fix-reference-md.mjs",
     "docs:watch": "typedoc --watch",
-    "docs:dev": "pnpm docs:gen && pnpm --dir website dev",
-    "docs:build": "pnpm docs:gen && pnpm --dir website build",
+    "docs:dev": "pnpm build && pnpm docs:gen && pnpm --dir website dev --port 3001",
+    "docs:build": "pnpm build && pnpm docs:gen && pnpm --dir website build",
     "semantic-release": "semantic-release"
   },
   "packageManager": "pnpm@9.15.0",
