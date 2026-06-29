@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const withMDX = createMDX();
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
+const packageRoot = path.join(dir, '..');
 const basePath =
   process.env.NODE_ENV === 'production' ? '/qinglong-client' : '';
 
@@ -17,8 +18,10 @@ const config = {
   images: { unoptimized: true },
   basePath,
   assetPrefix: basePath ? `${basePath}/` : '',
+  transpilePackages: ['qinglong-client'],
   turbopack: {
-    root: dir,
+    // website/ uses file:.. for qinglong-client; expand root so Turbopack can resolve it.
+    root: packageRoot,
   },
 };
 

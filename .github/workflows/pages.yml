@@ -41,6 +41,9 @@ jobs:
       - name: Install root dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build library
+        run: pnpm build
+
       - name: Generate API reference (TypeDoc → Markdown)
         run: pnpm docs:gen
 
