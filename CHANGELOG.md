@@ -1,3 +1,11 @@
+## [2.0.1](https://github.com/siaikin/qinglong-client/compare/v2.0.0...v2.0.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* remove timestamp parameter from URL construction in buildUrl function ([a4f8449](https://github.com/siaikin/qinglong-client/commit/a4f84498e5a879840c8139609238f419da8c17c4))
+* restructure client testing components and update documentation ([bfbae09](https://github.com/siaikin/qinglong-client/commit/bfbae09e59216683ca23832aeeb7698f17ed36df))
+
 # [2.0.0](https://github.com/siaikin/qinglong-client/compare/v1.3.0...v2.0.0) (2026-06-26)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "qinglong-client",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "TypeScript client for Qinglong Open API (/open/*)",
   "author": "siaikin <abc1310054026@outlook.com>",
   "repository": {
