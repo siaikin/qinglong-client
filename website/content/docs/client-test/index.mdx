@@ -1,0 +1,27 @@
+---
+title: 连接配置
+description: 填写青龙面板地址与应用凭证
+---
+
+<Callout type="warn">
+  此工具会直连你的青龙面板执行真实 API 调用。开发环境下，请求经本站 `/qinglong-proxy` 转发至下方填写的真实面板地址（含 `/ql` 前缀时照常填写），可绕过浏览器 CORS。生产环境（静态部署）无代理，需面板允许跨域或通过反向代理同域部署。请确保应用已授权对应 scope；部分接口会产生副作用。
+</Callout>
+
+填写下方表单，配置保存在浏览器 localStorage，不会上传到服务器。
+
+<ClientConnectionForm />
+
+## 模块测试
+
+选择模块进入对应 API 测试页面：
+
+<Cards>
+  <Card title="client.envs" href="/docs/client-test/envs" description="环境变量，需要 envs scope" />
+  <Card title="client.crons" href="/docs/client-test/crons" description="定时任务，需要 crons scope" />
+  <Card title="client.subscriptions" href="/docs/client-test/subscriptions" description="订阅管理，需要 subscriptions scope" />
+  <Card title="client.configs" href="/docs/client-test/configs" description="配置文件，需要 configs scope" />
+  <Card title="client.scripts" href="/docs/client-test/scripts" description="脚本管理，需要 scripts scope" />
+  <Card title="client.logs" href="/docs/client-test/logs" description="日志管理，需要 logs scope" />
+  <Card title="client.dependencies" href="/docs/client-test/dependencies" description="依赖管理，需要 dependencies scope" />
+  <Card title="client.system" href="/docs/client-test/system" description="系统设置，部分接口无需 scope" />
+</Cards>

@@ -3,7 +3,8 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import type { MDXComponents } from 'mdx/types';
-import ClientTester from '@/components/client-tester';
+import { ClientConnectionForm } from '@/components/client-test/connection-form';
+import { ClientModuleTester } from '@/components/client-test/module-tester';
 
 export function getMDXComponents(components?: MDXComponents) {
   return {
@@ -13,7 +14,8 @@ export function getMDXComponents(components?: MDXComponents) {
     Callout,
     Tab,
     Tabs,
-    ClientTester,
+    ClientConnectionForm,
+    ClientModuleTester,
     ...components,
   } satisfies MDXComponents;
 }

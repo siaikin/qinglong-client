@@ -1,0 +1,14 @@
+{
+  "title": "Client 测试",
+  "pages": [
+    "index",
+    "envs",
+    "crons",
+    "subscriptions",
+    "configs",
+    "scripts",
+    "logs",
+    "dependencies",
+    "system"
+  ]
+}
